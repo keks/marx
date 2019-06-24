@@ -3,6 +3,7 @@ package marx // import "github.com/keks/marx"
 import (
 	"context"
 	"sync"
+
 	"github.com/hashicorp/go-multierror"
 )
 
@@ -11,8 +12,8 @@ type Worker func(context.Context) error
 func Unite(wfs ...Worker) Worker {
 	return Worker(func(ctx context.Context) error {
 		var (
-			wg sync.WaitGroup
-			l sync.Mutex
+			wg   sync.WaitGroup
+			l    sync.Mutex
 			errs error
 		)
 
