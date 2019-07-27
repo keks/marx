@@ -60,8 +60,8 @@ func NewUnion() (Worker, func(Worker) error) {
 		default:
 		}
 
-		ch <- w
 		wg.Add(1)
+		ch <- w
 
 		return nil
 	}
@@ -84,6 +84,8 @@ func NewUnion() (Worker, func(Worker) error) {
 
 		waiter := func() {
 			wg.Wait()
+			l.Lock()
+			defer l.Unlock()
 			close(waitCh)
 		}
 
